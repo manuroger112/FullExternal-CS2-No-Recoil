@@ -8,6 +8,8 @@
 #include <thread>
 #include <ctime> 
 
+extern bool NoRecoilStatus;
+
 extern int NoRecoilKey;
 extern std::string keyNames[];
 extern int currentKeyIndex;
@@ -65,8 +67,15 @@ namespace Guns {
 		extern int X[31];
 		extern int Y[31];
 	}
+	//M4A1S
+	namespace C {
+		extern int RPM;
+		extern int size;
+		extern int X[31];
+		extern int Y[31];
+	}
 }
-
+void MainThread();
 
 void returnBackAfterComp(int* X, int* Y, int FullfinishOrMidFinish, int delay);
 

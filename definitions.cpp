@@ -1,6 +1,8 @@
 #include "defintions.h"
 
 //GLOBALS DEFINITION
+bool NoRecoilStatus = true;
+
 int NoRecoilKey = VK_LBUTTON;
 std::string keyNames[] = { "LBUTTON", "RBUTTON",  "MBUTTON", "X1BUTTON", "X2BUTTON", "BACKSPACE", "CTRL", "ALT", "X", "Y", "Z" };
 int currentKeyIndex = 1;
@@ -37,12 +39,14 @@ namespace SmoothnessConfiguration {
 		int rigidDelay[2] = { 100000, 0 };
 
 		int semiRigid = 2;
-		int semiRigidDelay[2] = { 44500, 0 };
+		int semiRigidDelay[2] = { 25000, 40000 };
 
 		int soft = 5;
+		//int softDelay[2] = { 4000, 20000 };
 		int softDelay[2] = { 4000, 20000 };
+		//int softDelay[2] = { 25000, 0 };
 	}
-	//M4A4 (WORK IN PROGRESS)
+	//M4A4
 	namespace B {
 		int rigid = 1;
 		int rigidDelay[2] = { 90000, 0 };
@@ -51,35 +55,49 @@ namespace SmoothnessConfiguration {
 		int semiRigidDelay[2] = { 44500, 0 };
 
 		int soft = 5;
-		int softDelay[2] = { 4000, 20000 };
+		int softDelay[2] = { 4000, 10000 };
+
+	}
+	//M4A1S
+	namespace C {
+		int rigid = 1;
+		int rigidDelay[2] = { 90000, 0 };
+
+		int semiRigid = 2;
+		int semiRigidDelay[2] = { 44500, 0 };
+
+		int soft = 5;
+		int softDelay[2] = { 4000, 10000 };
 
 	}
 
 	//I store all gun delay/smoothness configuration in this array for accesibility (bullshit, but this basically allows me to switch smoothness whenever I want with whatever gun selected) each gun has 6 core settings for smoothness and delays
 	//for each new gun added this array will grow by 6 elements (manually will be added ofcourse...)
-	int* GunConfArray[] = { &A::rigid,  A::rigidDelay, &A::semiRigid, A::semiRigidDelay, &A::soft, A::softDelay,  &B::rigid, B::rigidDelay, &B::semiRigid, B::semiRigidDelay, &B::soft, B::softDelay };
+	int* GunConfArray[] = { &A::rigid,  A::rigidDelay, &A::semiRigid, A::semiRigidDelay, &A::soft, A::softDelay,  &B::rigid, B::rigidDelay, &B::semiRigid, B::semiRigidDelay, &B::soft, B::softDelay, &C::rigid, C::rigidDelay, &C::semiRigid, C::semiRigidDelay, &C::soft, C::softDelay };
 }
 
 namespace Guns {
-	const int AmountOfGuns = 2;
+	const int AmountOfGuns = 3;
 	//AK47
 	namespace A {
 		//double TotalDelayPerShot = (60.0f / RPM) * 1000.0f;
-		//int RPM = 600;
 		int size = 31;
 		//int X[31] = { 0, 0, 0, 0, 20, 30, 10, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, 0 };
-		//int Y[31] = {0, 30, 40, 70, 90, 70, 90, 30, 20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, 0, 0, -50, 10, 0 };
-		int X[31] = { 0, 0, 0, 0, 20, 30, 10, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, 0 };
-		int Y[31] = { 0, 40, 70, 90, 70, 80, 70, 20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, 0 };
-
-
+		//int Y[31] = { 0, 40, 70, 90, 70, 80, 70, 20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, 0 };
+		int X[31] = { 0, 0, 0, 0, 0, 40, 40, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, -10, 0 };
+		int Y[31] = { 0, 40, 40, 80, 80, 80, 80,  20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, -10, 0 };
 	}
-	//M4A4 (WORK IN PROGRESS)
+	//M4A4
 	namespace B {
-		int RPM = 666;
 		int size = 31;
-		int X[31] = { 0, 0, 0, 0, 0, -10, 10, 20, 20, 30, -40, -40, -40, -40, -40, -50, 0, 30, 30, 20, 60, 30, 40, 20, 10, 0, 0, 10, 10, 0, 0};
+		int X[31] = { 0, 0, 0, 0, 0, -10, 10, 20, 20, 30, -40, -40, -40, -40, -40, -50, 0, 30, 30, 20, 60, 30, 40, 20, 10, 0, 0, 10, 10, 0, 0 };
 		int Y[31] = { 0, 10, 30, 40, 40, 60, 60, 60, 30, 20, 20,  20, 0, -10, 0, 10, 10, 0, 0, 0, 10, 0, 0, 10, 0, 10, 10, 0, 0, 0, 0 };
+	}
+	//M4A1-S
+	namespace C {
+		int size = 31;
+		int X[31] = { 0, 0, 0, 0 , 0, -10, 0, 30, 10, 30, -10, -40, -20, -30, -20, -20, -30, -30, 10, -10, 0, 20, 40, 60, 10, 0 };
+		int Y[31] = { 0, 10, 10, 30 , 30, 40, 40, 50, 10, 10, 10, 20, 0, -10, 0, 0, -10, 0, 10, 0, 10, 0, 0, 20, 0, 0 };
 	}
 }
 
@@ -92,7 +110,7 @@ namespace Guns {
 //This is used to find the total displacement from where you started to where you stopped shooting with norecoil, I use this to calculate where to actually return your mouse to after you shoot
 int FindTotalDisplacement(int* EitherXorY, int CountValueStoppedAt, int XorY) {
 	//Get the x and y relative displacement coordinates in order to return to right before you started using the no recoil
-	
+
 	//find x displacement relative to start if identifier (XorY) is 0 
 	if (XorY == 0) {
 		int TotalXDisplacement = 0;
@@ -100,7 +118,7 @@ int FindTotalDisplacement(int* EitherXorY, int CountValueStoppedAt, int XorY) {
 			for (int j = 0; j < CurrentSmoothness; j++) {
 				TotalXDisplacement += EitherXorY[i] / CurrentSmoothness;
 			}
-			
+
 		}
 		TotalXDisplacement = -(TotalXDisplacement - EitherXorY[0]);
 		return TotalXDisplacement;
@@ -140,10 +158,10 @@ void returnBackAfterComp(int* X, int* Y, int FullfinishOrMidFinish, int delay) {
 	//0 for full finish 1 for midfinish 
 
 	if (FullfinishOrMidFinish == 0) {
-		
+
 		DivisionXFix = FindTotalDisplacement(X, count + 1, 0) - ((FindTotalDisplacement(X, count + 1, 0) / returnBackSmoothness) * returnBackSmoothness);
 		DivisionYFix = FindTotalDisplacement(Y, count + 1, 1) - ((FindTotalDisplacement(Y, count + 1, 1) / returnBackSmoothness) * returnBackSmoothness);
-		
+
 	}
 
 	else if (FullfinishOrMidFinish == 1) {
@@ -162,7 +180,7 @@ void returnBackAfterComp(int* X, int* Y, int FullfinishOrMidFinish, int delay) {
 	moveMouse(DivisionXFix / randomNumber, DivisionYFix / randomNumber);
 
 
-} 
+}
 
 //Self explanitory..
 void SmoothMovementMove(int* X, int* Y, int* delay, int smoothness) {
@@ -171,8 +189,8 @@ void SmoothMovementMove(int* X, int* Y, int* delay, int smoothness) {
 
 		std::this_thread::sleep_for(std::chrono::microseconds(delay[0]));
 		moveMouse(static_cast<int>((X[count] / smoothness) / randomNumber), static_cast<int>((Y[count] / smoothness) / randomNumber));
-		
-		
+
+
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(delay[1]));
 }
@@ -238,7 +256,6 @@ void ScrollThroughWeapons() {
 
 	case 1: {
 		CurrentGunName = "AK47";
-		//std::cout << "Current weapon selection: AK47 " << std::endl;
 		CurrentWeaponX = Guns::A::X;
 		CurrentWeaponY = Guns::A::Y;
 		CurrentSize = Guns::A::size;
@@ -247,21 +264,21 @@ void ScrollThroughWeapons() {
 
 	case 2: {
 		CurrentGunName = "M4A4";
-		//std::cout << "Current weapon selection: M4A4 " << std::endl;
 		CurrentWeaponX = Guns::B::X;
 		CurrentWeaponY = Guns::B::Y;
 		CurrentSize = Guns::B::size;
-
 		break;
 	}
 
-	//for future guns implementation |
-	//                               V
+		  //for future guns implementation |
+		  //                               V
 
 	case 3: {
 
-
-
+		CurrentGunName = "M4A1-S";
+		CurrentWeaponX = Guns::C::X;
+		CurrentWeaponY = Guns::C::Y;
+		CurrentSize = Guns::C::size;
 		break;
 	}
 
@@ -277,8 +294,8 @@ void ScrollThroughWeapons() {
 
 	//Change the recoil compensation pattern values based on your ingame sensitivity
 	for (int k = 0; k < CurrentSize; k++) {
-		CurrentWeaponX[k] /= CS2sensitivity / 1.1;
-		CurrentWeaponY[k] /= CS2sensitivity / 1.1;
+		CurrentWeaponX[k] /= CS2sensitivity;
+		CurrentWeaponY[k] /= CS2sensitivity;
 
 		//round to the nearest 10th as the format of recoil comp values are set in 10s only
 		CurrentWeaponX[k] = std::round(10 * CurrentWeaponX[k]) / 10;
@@ -290,7 +307,7 @@ void ScrollThroughWeapons() {
 	DisplayStatusConfig(1);
 }
 
-void SwitchKeyBind(){
+void SwitchKeyBind() {
 
 	DisplayStatusConfig(2);
 	//Here I just choose probably the most common used keybinds, took their virtual key code which windows uses to determine which key is pressed and made it so that you can select the key you preferably want
@@ -320,14 +337,14 @@ void SwitchKeyBind(){
 			break;
 		}
 
-		
+
 
 	}
 
 	switch (currentKeyIndex) {
 
-	//based on the current key index I switch my key eg: index 1 so key is set to 1 or LBUTTON
-	//initially the code keys were in hex but I found it easier to convert them in decimal
+		//based on the current key index I switch my key eg: index 1 so key is set to 1 or LBUTTON
+		//initially the code keys were in hex but I found it easier to convert them in decimal
 
 	case 1: {
 		NoRecoilKey = 1;
@@ -408,7 +425,7 @@ void DisplayStatusConfig(int StatusIndex) {
 
 	else if (StatusIndex == 2) {
 		system("cls");
-		
+
 		std::cout << "Static set keybinds :\n \nF1 Cycle Guns, F2 Cycle Smoothness,\nF3 Enable/Disable Randomness, \nF4 Enable/Disable Aim Return, \nEND Quit \n";
 
 		std::cout << "\n \n \nKEY SWITCHING MODE, GO THROUGH OPTIONS USING LEFT/RIGHT ARROW KEYS \n";
@@ -421,5 +438,57 @@ void DisplayStatusConfig(int StatusIndex) {
 	else {
 		std::cout << "Uknown Status Display Index \n";
 	}
+
+}
+
+
+void MainThread() {
+
+	while (true) {
+
+		if (NoRecoilStatus == false) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+			continue;
+		}
+
+		//Handle what happens if you stop using the norecoil before finishing the whole magazine
+		if (!(GetAsyncKeyState(NoRecoilKey) < 0)) {
+
+			if (count != 0) {
+				if (returnBackAfterShooting == true) {
+					returnBackAfterComp(CurrentWeaponX, CurrentWeaponY, 0, returnDelay);
+				}
+				count = 0;
+				if (randomizer == true) {
+					randomNumber = generateNumber();
+				}
+				continue;
+			}
+		}
+
+		//Handle what happens if norecoil was kept throughout the whole magazine
+		else if (GetAsyncKeyState(NoRecoilKey) < 0) {
+
+
+			//game glitches at max array value right so I just subtract 1 so it doesnt write the last (ghetto shit)
+			if (count == CurrentSize - 1) {
+
+				if (returnBackAfterShooting == true) {
+					returnBackAfterComp(CurrentWeaponX, CurrentWeaponY, 0, returnDelay);
+				}
+				count = 0;
+				if (randomizer == true) {
+					randomNumber = generateNumber();
+				}
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+				continue;
+			}
+
+			count++;
+			SmoothMovementMove(CurrentWeaponX, CurrentWeaponY, CurrentSmoothnessDelay, CurrentSmoothness);
+
+		}
+	}
+
 	
 }
