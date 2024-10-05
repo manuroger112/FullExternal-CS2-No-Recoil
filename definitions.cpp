@@ -42,9 +42,7 @@ namespace SmoothnessConfiguration {
 		int semiRigidDelay[2] = { 25000, 40000 };
 
 		int soft = 5;
-		//int softDelay[2] = { 4000, 20000 };
 		int softDelay[2] = { 4000, 20000 };
-		//int softDelay[2] = { 25000, 0 };
 	}
 	//M4A4
 	namespace B {
@@ -82,8 +80,6 @@ namespace Guns {
 	namespace A {
 		//double TotalDelayPerShot = (60.0f / RPM) * 1000.0f;
 		int size = 31;
-		//int X[31] = { 0, 0, 0, 0, 20, 30, 10, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, 0 };
-		//int Y[31] = { 0, 40, 70, 90, 70, 80, 70, 20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, 0 };
 		int X[31] = { 0, 0, 0, 0, 0, 40, 40, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, -10, 0 };
 		int Y[31] = { 0, 40, 40, 80, 80, 80, 80,  20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, -10, 0 };
 	}
@@ -201,9 +197,7 @@ void moveMouse(int NormalizedX, int NormalizedY) {
 	input.mi.dx = NormalizedX;
 	input.mi.dy = NormalizedY;
 	input.mi.dwFlags = MOUSEEVENTF_MOVE;
-	//time of the event
 	input.mi.time = 0;
-	//additional data with mouse events, its generally 0 for basic mouse movements or button presses
 	input.mi.mouseData = 0;
 
 	SendInput(1, &input, sizeof(INPUT));
@@ -270,8 +264,6 @@ void ScrollThroughWeapons() {
 		break;
 	}
 
-		  //for future guns implementation |
-		  //                               V
 
 	case 3: {
 
@@ -281,6 +273,10 @@ void ScrollThroughWeapons() {
 		CurrentSize = Guns::C::size;
 		break;
 	}
+
+
+	//for future guns implementation |
+	//                               V
 
 	case 4: {
 

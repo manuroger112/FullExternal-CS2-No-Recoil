@@ -2,7 +2,7 @@
 
 //if the randomizer is active the return of your aim will also vary based on the randomness
 
-//for now there are 2 weapon options, AK47 and M4A4 
+//for now there are 3 weapon options, AK47 M4A4 and M4A1-S
 
 //initially you start with an AK47 Rigid recoil control with returning back after shooting configuration but from there you can change it
 
@@ -77,7 +77,6 @@ int main() {
 		else if (GetAsyncKeyState(0x48) & 1) {
 			NoRecoilStatus = !NoRecoilStatus;
 			SwitchKeyBind();
-			//std::thread(SwitchKeyBind).join();
 			DisplayStatusConfig(1);
 			NoRecoilStatus = !NoRecoilStatus;
 		}

@@ -1,5 +1,5 @@
 //Yeah... I know this looks completely crazy. Here I just declare my variables and define them in the definition source file accordingly, the reason for this is that if I would define them here when including my header file
-//into my 2 sources, the variables will have duplicated definitions in 2 different locations which you CANNOT do... .What I can do is declare my variables so that I can use them in other source files and define them (allocate them memory)
+//into my 2 sources, the variables will have duplicated definitions in 2 different locations which you CANNOT do... . What I can do is declare my variables so that I can use them in other source files and define them (allocate them memory)
 //in the definition source file so that I avoid have more than one definitions :)
 
 #pragma once
@@ -52,6 +52,7 @@ namespace SmoothnessConfiguration {
 	}
 	extern int* GunConfArray[];
 }
+//Someone would ask why are they named A B C, and I would say I have no fucking clue :|
 namespace Guns {
 	extern const int AmountOfGuns;
 	//AK47
