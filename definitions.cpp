@@ -18,6 +18,8 @@ std::string CurrentSmoothnessName = " ";
 
 int CurrentWeaponIndex = 1;
 int CurrentSize = 0;
+int* CurrentRawWeaponX = nullptr;
+int* CurrentRawWeaponY = nullptr;
 int* CurrentWeaponX = nullptr;
 int* CurrentWeaponY = nullptr;
 std::string CurrentGunName = " ";
@@ -27,7 +29,6 @@ bool randomizer = false;
 double randomNumber = 1.0f;
 
 bool returnBackAfterShooting = true;
-
 
 //the delays of after each shot (it is not uniform because we must include Overhead compensation because depending on which smoothness you have the more function calls you will have to make)
 //some smoothness types need more than one delays such as the soft one (delay was optained through trial and error)
@@ -80,20 +81,35 @@ namespace Guns {
 	namespace A {
 		//double TotalDelayPerShot = (60.0f / RPM) * 1000.0f;
 		int size = 31;
-		int X[31] = { 0, 0, 0, 0, 0, 40, 40, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, -10, 0 };
-		int Y[31] = { 0, 40, 40, 80, 80, 80, 80,  20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, -10, 0 };
+
+		int RawX[31] = { 0, 0, 0, 0, 0, 40, 40, -40, -90, -30, -20, -20, -20, 0, 80, 30, 50, 50, 30, 20, -20, -10, 0, 10, 0, -40, -90, -70, -30, -10, 0 };
+		int RawY[31] = { 0, 40, 40, 80, 80, 80, 80,  20, -10, 20, 0, 0, -10, 20, 30, -10, 20, 0, -10, -10, 10, 10, 10, 0, 10, -10, 0, -50, 10, -10, 0 };
+
+		//Normalized compensation values array (array where the sensitivity configurated compensation values sit)
+		int X[31];
+		int Y[31];
 	}
 	//M4A4
 	namespace B {
 		int size = 31;
-		int X[31] = { 0, 0, 0, 0, 0, -10, 10, 20, 20, 30, -40, -40, -40, -40, -40, -50, 0, 30, 30, 20, 60, 30, 40, 20, 10, 0, 0, 10, 10, 0, 0 };
-		int Y[31] = { 0, 10, 30, 40, 40, 60, 60, 60, 30, 20, 20,  20, 0, -10, 0, 10, 10, 0, 0, 0, 10, 0, 0, 10, 0, 10, 10, 0, 0, 0, 0 };
+
+		int RawX[31] = { 0, 0, 0, 0, 0, -10, 10, 20, 20, 30, -40, -40, -40, -40, -40, -50, 0, 30, 30, 20, 60, 30, 40, 20, 10, 0, 0, 10, 10, 0, 0 };
+		int RawY[31] = { 0, 10, 30, 40, 40, 60, 60, 60, 30, 20, 20,  20, 0, -10, 0, 10, 10, 0, 0, 0, 10, 0, 0, 10, 0, 10, 10, 0, 0, 0, 0 };
+
+		//Normalized compensation values array (array where the sensitivity configurated compensation values sit)
+		int X[31];
+		int Y[31];
 	}
 	//M4A1-S
 	namespace C {
 		int size = 31;
-		int X[31] = { 0, 0, 0, 0 , 0, -10, 0, 30, 10, 30, -10, -40, -20, -30, -20, -20, -30, -30, 10, -10, 0, 20, 40, 60, 10, 0 };
-		int Y[31] = { 0, 10, 10, 30 , 30, 40, 40, 50, 10, 10, 10, 20, 0, -10, 0, 0, -10, 0, 10, 0, 10, 0, 0, 20, 0, 0 };
+
+		int RawX[31] = { 0, 0, 0, 0 , 0, -10, 0, 30, 10, 30, -10, -40, -20, -30, -20, -20, -30, -30, 10, -10, 0, 20, 40, 60, 10, 0 };
+		int RawY[31] = { 0, 10, 10, 30 , 30, 40, 40, 50, 10, 10, 10, 20, 0, -10, 0, 0, -10, 0, 10, 0, 10, 0, 0, 20, 0, 0 };
+
+		//Normalized compensation values array (array where the sensitivity configurated compensation values sit)
+		int X[31];
+		int Y[31];
 	}
 }
 
@@ -250,6 +266,8 @@ void ScrollThroughWeapons() {
 
 	case 1: {
 		CurrentGunName = "AK47";
+		CurrentRawWeaponX = Guns::A::RawX;
+		CurrentRawWeaponY = Guns::A::RawY;
 		CurrentWeaponX = Guns::A::X;
 		CurrentWeaponY = Guns::A::Y;
 		CurrentSize = Guns::A::size;
@@ -258,6 +276,8 @@ void ScrollThroughWeapons() {
 
 	case 2: {
 		CurrentGunName = "M4A4";
+		CurrentRawWeaponX = Guns::B::RawX;
+		CurrentRawWeaponY = Guns::B::RawY;
 		CurrentWeaponX = Guns::B::X;
 		CurrentWeaponY = Guns::B::Y;
 		CurrentSize = Guns::B::size;
@@ -268,6 +288,8 @@ void ScrollThroughWeapons() {
 	case 3: {
 
 		CurrentGunName = "M4A1-S";
+		CurrentRawWeaponX = Guns::C::RawX;
+		CurrentRawWeaponY = Guns::C::RawY;
 		CurrentWeaponX = Guns::C::X;
 		CurrentWeaponY = Guns::C::Y;
 		CurrentSize = Guns::C::size;
@@ -290,8 +312,8 @@ void ScrollThroughWeapons() {
 
 	//Change the recoil compensation pattern values based on your ingame sensitivity
 	for (int k = 0; k < CurrentSize; k++) {
-		CurrentWeaponX[k] /= CS2sensitivity;
-		CurrentWeaponY[k] /= CS2sensitivity;
+		CurrentWeaponX[k] = CurrentRawWeaponX[k] / CS2sensitivity;
+		CurrentWeaponY[k] = CurrentRawWeaponY[k] / CS2sensitivity;
 
 		//round to the nearest 10th as the format of recoil comp values are set in 10s only
 		CurrentWeaponX[k] = std::round(10 * CurrentWeaponX[k]) / 10;

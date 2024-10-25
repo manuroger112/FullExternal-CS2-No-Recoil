@@ -22,6 +22,8 @@ extern int CurrentSmoothnessDelay[2];
 extern std::string CurrentSmoothnessName;
 extern int CurrentWeaponIndex;
 extern int CurrentSize;
+extern int* CurrentRawWeaponX;
+extern int* CurrentRawWeaponY;
 extern int* CurrentWeaponX;
 extern int* CurrentWeaponY;
 extern std::string CurrentGunName;
@@ -29,7 +31,6 @@ extern float CS2sensitivity;
 extern bool randomizer;
 extern double randomNumber;
 extern bool returnBackAfterShooting;
-
 
 namespace SmoothnessConfiguration {
 	//AK47
